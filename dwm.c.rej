@@ -1,31 +1,29 @@
 --- dwm.c
 +++ dwm.c
-@@ -443,9 +448,26 @@ buttonpress(XEvent *e)
- 		if (i < LENGTH(tags)) {
- 			click = ClkTagBar;
- 			arg.ui = 1 << i;
--		} else if (ev->x < x + blw)
-+			goto execute_handler;
-+		} else if (ev->x < x + blw) {
- 			click = ClkLtSymbol;
--		else if (ev->x > selmon->ww - TEXTW(stext))
-+			goto execute_handler;
-+		}
+@@ -241,9 +247,16 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
+ static int xerrorstart(Display *dpy, XErrorEvent *ee);
+ static void zoom(const Arg *arg);
+ 
++static pid_t getparentprocess(pid_t p);
++static int isdescprocess(pid_t p, pid_t c);
++static Client *swallowingclient(Window w);
++static Client *termforwin(const Client *c);
++static pid_t winpid(Window w);
 +
-+		x += blw;
+ /* variables */
+ static const char broken[] = "broken";
+ static char stext[256];
++static int scanner;
+ static int screen;
+ static int sw, sh;           /* X display screen geometry width, height */
+ static int bh, blw = 0;      /* bar geometry */
+@@ -719,6 +792,9 @@ destroynotify(XEvent *e)
+ 
+ 	if ((c = wintoclient(ev->window)))
+ 		unmanage(c, 1);
 +
-+		for(i = 0; i < LENGTH(launchers); i++) {
-+			x += TEXTW(launchers[i].name);
-+			
-+			if (ev->x < x) {
-+				Arg a;
-+				a.v = launchers[i].command;
-+				spawn(&a);
-+				return;
-+			}
-+		}	
-+
-+		if (ev->x > selmon->ww - TEXTW(stext))
- 			click = ClkStatusText;
- 		else
- 			click = ClkWinTitle;
++	else if ((c = swallowingclient(ev->window)))
++		unmanage(c->swallowing, 1);
+ }
+ 
+ void
