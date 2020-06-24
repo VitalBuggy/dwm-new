@@ -17,11 +17,11 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=10", "Font Awesome 5 Free Solid:size=10" , "Font Awesome 5 Free Regular:size=10", "Font Awesome 5 Brands:size=10"};
 static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#1c2023";
-static const char col_gray2[]       = "#747c84";
-static const char col_gray3[]       = "#4C566A";
-static const char col_gray4[]       = "#E5E9F0";
-static const char col_cyan[]        = "#5E81AC";
+static const char col_gray1[]       = "#1d1f21";
+static const char col_gray2[]       = "#282a2e";
+static const char col_gray3[]       = "#373b41";
+static const char col_gray4[]       = "#c5c8c6";
+static const char col_cyan[]        = "#85678f";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
