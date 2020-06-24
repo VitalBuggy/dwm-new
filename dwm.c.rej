@@ -1,29 +1,11 @@
 --- dwm.c
 +++ dwm.c
-@@ -241,9 +247,16 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
- static int xerrorstart(Display *dpy, XErrorEvent *ee);
- static void zoom(const Arg *arg);
- 
-+static pid_t getparentprocess(pid_t p);
-+static int isdescprocess(pid_t p, pid_t c);
-+static Client *swallowingclient(Window w);
-+static Client *termforwin(const Client *c);
-+static pid_t winpid(Window w);
-+
- /* variables */
- static const char broken[] = "broken";
- static char stext[256];
-+static int scanner;
- static int screen;
- static int sw, sh;           /* X display screen geometry width, height */
- static int bh, blw = 0;      /* bar geometry */
-@@ -719,6 +792,9 @@ destroynotify(XEvent *e)
- 
- 	if ((c = wintoclient(ev->window)))
- 		unmanage(c, 1);
-+
-+	else if ((c = swallowingclient(ev->window)))
-+		unmanage(c->swallowing, 1);
- }
- 
- void
+@@ -2196,6 +2256,8 @@ main(int argc, char *argv[])
+ 	if (!(dpy = XOpenDisplay(NULL)))
+ 		die("dwm: cannot open display");
+ 	checkotherwm();
++        XrmInitialize();
++        loadxrdb();
+ 	setup();
+ #ifdef __OpenBSD__
+ 	if (pledge("stdio rpath proc exec", NULL) == -1)

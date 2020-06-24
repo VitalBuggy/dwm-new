@@ -16,26 +16,27 @@ static const int smartgaps          = 0;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=10", "Font Awesome 5 Free Solid:size=10" , "Font Awesome 5 Free Regular:size=10", "Font Awesome 5 Brands:size=10"};
-static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#1d1f21";
-static const char col_gray2[]       = "#282a2e";
-static const char col_gray3[]       = "#373b41";
-static const char col_gray4[]       = "#c5c8c6";
-static const char col_cyan[]        = "#85678f";
-static const char *colors[][3]      = {
+static char dmenufont[]       = "monospace:size=10";
+static char normbgcolor[]       = "#1d1f21";
+static char normbordercolor[]       = "#282a2e";
+static char normfgcolor[]       = "#373b41";
+static char selfgcolor[]       = "#c5c8c6";
+static char selbordercolor[]        = "#85678f";
+static char selbgcolor[]        = "#85678f";
+static char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+	[SchemeSel]  = { selfgcolor, selbgcolor,  selbordercolor  },
 };
 
 static const char *const autostart[] = {
+    "sh", "-c", "wal -R", NULL,
 	"slstatus", NULL,
 	"mpd", NULL,
     "picom", NULL,
     "pa-applet", NULL,
     "nm-applet", NULL,
     "dunst", NULL,
-    "sh", "-c", "nitrogen --restore", NULL,
 	NULL /* terminate */
 };
 
@@ -82,7 +83,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include "shiftview.c"
@@ -115,6 +116,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_y,      incrovgaps,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_o,      incrovgaps,     {.i = -1 } },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[0]} },
