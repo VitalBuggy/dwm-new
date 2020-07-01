@@ -969,7 +969,7 @@ drawbar(Monitor *m)
 
 
 	/* draw status first so it can be overdrawn by tags later */
-	if (m == selmon | 1) { /* status is only drawn on selected monitor */
+	if ((m == selmon) | 1) { /* status is only drawn on selected monitor */
 		drw_setscheme(drw, scheme[SchemeNorm]);
 		tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
 		drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0);
@@ -1348,12 +1348,12 @@ loadxrdb()
       xrdb = XrmGetStringDatabase(resm);
 
       if (xrdb != NULL) {
-        XRDB_LOAD_COLOR("dwm.color2", normbordercolor);
-        XRDB_LOAD_COLOR("dwm.background", normbgcolor);
-        XRDB_LOAD_COLOR("dwm.color7", normfgcolor);
-        XRDB_LOAD_COLOR("dwm.color10", selbordercolor);
-        XRDB_LOAD_COLOR("dwm.color3", selbgcolor);
-        XRDB_LOAD_COLOR("dwm.foreground", selfgcolor);
+        XRDB_LOAD_COLOR("dwm.color0", normbordercolor);
+        XRDB_LOAD_COLOR("dwm.color8", selbordercolor);
+        XRDB_LOAD_COLOR("dwm.color0", normbgcolor);
+        XRDB_LOAD_COLOR("dwm.foreground", normfgcolor);
+        XRDB_LOAD_COLOR("dwm.color0", selfgcolor);
+        XRDB_LOAD_COLOR("dwm.color10", selbgcolor);
       }
     }
   }
