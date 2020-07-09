@@ -1,11 +1,11 @@
 --- dwm.c
 +++ dwm.c
-@@ -2196,6 +2256,8 @@ main(int argc, char *argv[])
- 	if (!(dpy = XOpenDisplay(NULL)))
- 		die("dwm: cannot open display");
- 	checkotherwm();
-+        XrmInitialize();
-+        loadxrdb();
- 	setup();
- #ifdef __OpenBSD__
- 	if (pledge("stdio rpath proc exec", NULL) == -1)
+@@ -697,7 +699,7 @@ dirtomon(int dir)
+ void
+ drawbar(Monitor *m)
+ {
+-	int x, w, sw = 0;
++	int x, w, wdelta, sw = 0;
+ 	int boxs = drw->fonts->h / 9;
+ 	int boxw = drw->fonts->h / 6 + 2;
+ 	unsigned int i, occ = 0, urg = 0;

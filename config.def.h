@@ -15,7 +15,7 @@ static const unsigned int gappov    = 30;       /* vert outer gap between window
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10", "Font Awesome 5 Free Solid:size=10" , "Font Awesome 5 Free Regular:size=10", "Font Awesome 5 Brands:size=10"};
+static const char *fonts[]          = { "monospace:size=10", "Font Awesome 5 Free Solid:size=10" , "Font Awesome 5 Free Regular:size=10", "Font Awesome 5 Brands:size=10", "TakaoGothic:size=10"};
 static char dmenufont[]       = "monospace:size=10";
 static char normbgcolor[]       = "#1d1f21";
 static char normbordercolor[]       = "#282a2e";
@@ -31,18 +31,20 @@ static char *colors[][3]      = {
 
 static const char *const autostart[] = {
     "sh", "-c", "xrdb ~/.Xresources", NULL,
-    "sh", "-c", "nitrogen --restore", NULL,
+    "sh", "-c", "~/.screenlayout/fix_monitors_dwm.sh", NULL,
+    "sh", "-c", "~/.screenlayout/fix_monitors.sh", NULL,
+    "sh", "-c", "~/.fehbg", NULL,
     "slstatus", NULL,
 	"mpd", NULL,
     "picom", NULL,
-    "pa-applet", NULL,
-    "nm-applet", NULL,
+    "sh", "-c", "xmodmap ~/.Xmodmap", NULL,
     "dunst", NULL,
 	NULL /* terminate */
 };
 
 /* tagging */
 static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tagsalt[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -149,6 +151,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
+	{ MODKEY,                       XK_n,      togglealttag,   {0} },
 };
 
 /* button definitions */
