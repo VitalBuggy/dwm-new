@@ -150,8 +150,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
 	{ MODKEY,                       XK_n,      togglealttag,   {0} },
+	{ MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
 
 	//{ MODKEY,                       XK_equal,      spawn,   SHCMD("pamixer --allow-boost -i 5") },
 	//{ MODKEY|ShiftMask,                       XK_equal,      spawn,   SHCMD("pamixer --allow-boost -i 15") },

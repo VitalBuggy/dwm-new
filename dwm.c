@@ -351,8 +351,8 @@ static void (*handler[LASTEvent]) (XEvent *) = {
 	[UnmapNotify] = unmapnotify
 };
 static Atom wmatom[WMLast], netatom[NetLast], xatom[XLast];
-static int restart = 0;
 static int running = 1;
+static int restart = 0;
 static Cur *cursor[CurLast];
 static Clr **scheme;
 static Display *dpy;
@@ -1620,6 +1620,8 @@ void
 quit(const Arg *arg)
 {
 	size_t i;
+
+	if(arg->i) restart = 1;
 
 	/* kill child processes */
 	for (i = 0; i < autostart_len; i++) {
