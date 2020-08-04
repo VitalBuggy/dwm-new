@@ -15,7 +15,7 @@ static const unsigned int gappov    = 30;       /* vert outer gap between window
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10", "Font Awesome 5 Free Solid:size=10" , "Font Awesome 5 Free Regular:size=10", "Font Awesome 5 Brands:size=10", "TakaoGothic:size=10"};
+static const char *fonts[]          = { "Font Awesome 5 Free Solid:size=10" , "Font Awesome 5 Free Regular:size=10", "Font Awesome 5 Brands:size=10", "TakaoGothic:size=10", "TerminessTTF Nerd Font:size=10"};
 static char dmenufont[]       = "monospace:size=10";
 static char normbgcolor[]       = "#1d1f21";
 static char normbordercolor[]       = "#282a2e";
@@ -32,9 +32,11 @@ static char *colors[][3]      = {
 static const char *const autostart[] = {
     "sh", "-c", "xrdb ~/.Xresources", NULL,
     "sh", "-c", "~/.fehbg", NULL,
+    "sh", "-c", "sxhkd", NULL,
     "slstatus", NULL,
 	"mpd", NULL,
     "picom", NULL,
+    "nm-applet", NULL,
     "sh", "-c", "xmodmap ~/.Xmodmap", NULL,
     "sh", "-c", "wmname LG3D", NULL,
     "dunst", NULL,
@@ -51,6 +53,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+    { "mus",     NULL,     NULL,           1 << 3,         1,          0,           1,        -1 },
 	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         1,          0,           1,        -1 }, /* xev */
 };
@@ -89,8 +92,8 @@ static const char *termcmd[]  = { "st", NULL };
 #include "shiftview.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("rofi -show drun -theme bruh") },
+	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	//{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("rofi -show drun -theme bruh") },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -135,8 +138,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
     { MODKEY,                       XK_q,      shiftview,      {.i = -1}  },
     { MODKEY,                       XK_w,      shiftview,      {.i = 1}  },
-    { MODKEY|ShiftMask,                       XK_a,      spawn,          SHCMD("qutebrowser")  },
-    { MODKEY|ShiftMask,                       XK_m,      spawn,          SHCMD("st ncmpcpp")  },
+    //{ MODKEY|ShiftMask,                       XK_a,      spawn,          SHCMD("firefox-bin")  },
+    //{ MODKEY|ShiftMask,                       XK_m,      spawn,          SHCMD("st -c mus ncmpcpp")  },
     TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -150,10 +153,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
 	{ MODKEY,                       XK_n,      togglealttag,   {0} },
 
-	{ MODKEY,                       XK_equal,      spawn,   SHCMD("pamixer --allow-boost -i 5") },
-	{ MODKEY|ShiftMask,                       XK_equal,      spawn,   SHCMD("pamixer --allow-boost -i 15") },
-	{ MODKEY,                       XK_minus,      spawn,   SHCMD("pamixer --allow-boost -d 5") },
-	{ MODKEY|ShiftMask,                       XK_minus,      spawn,   SHCMD("pamixer --allow-boost -d 15") }
+	//{ MODKEY,                       XK_equal,      spawn,   SHCMD("pamixer --allow-boost -i 5") },
+	//{ MODKEY|ShiftMask,                       XK_equal,      spawn,   SHCMD("pamixer --allow-boost -i 15") },
+	//{ MODKEY,                       XK_minus,      spawn,   SHCMD("pamixer --allow-boost -d 5") },
+	//{ MODKEY|ShiftMask,                       XK_minus,      spawn,   SHCMD("pamixer --allow-boost -d 15") }
 };
 
 /* button definitions */
